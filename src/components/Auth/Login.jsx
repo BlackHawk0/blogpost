@@ -18,6 +18,12 @@ const Login = () => {
       .then((res) => res.json())
       .then((data) => setUsers(data))
       .catch((err) => alert(err.message));
+
+    // Check if the user is already logged in (using localStorage)
+    const isLoggedInFromLocalStorage = localStorage.getItem('isLoggedIn');
+    if (isLoggedInFromLocalStorage === 'true') {
+      setIsLoggedIn(true);
+    }
   }, []);
 
   const handleLogin = (e) => {
@@ -28,7 +34,8 @@ const Login = () => {
 
     if (user) {
       setIsLoggedIn(true);
-      navigate('/feeds')
+      localStorage.setItem('isLoggedIn', 'true');
+      navigate('/')
     } else {
       alert('Invalid email/username or password!');
     }
