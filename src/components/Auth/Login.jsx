@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import Feeds from '../../Pages/Feeds';
+import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../context/context';
 
 const Login = () => {
-  const [users, setUsers] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const { isLoggedIn, setIsLoggedIn, users, setUsers } = useContext(AppContext); 
+
+  const navigate = useNavigate()
+
   const url = 'https://jsonplaceholder.typicode.com/users';
 
   useEffect(() => {
@@ -15,12 +22,13 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-
-    const user = users.find( user => user.username = email || user.email === email && user.address.zipcode === password)
+    const user = users.find(
+      (user) => (user.username === email || user.email === email) && user.address.zipcode === password
+    );
 
     if (user) {
-      // Successful login 
-      alert('Login successful!');
+      setIsLoggedIn(true);
+      navigate('/feeds')
     } else {
       alert('Invalid email/username or password!');
     }
@@ -84,6 +92,8 @@ const Login = () => {
           </div>
         </div>
       </div>
+
+      {isLoggedIn && <Feeds isLoggedIn={isLoggedIn}  />}
     </section>
   );
 };
