@@ -1,45 +1,9 @@
-// import React from 'react';
-
-// const Header = () => {
-//   return (
-//      <div className="px-2 py-3 space-y-2 font-medium text-slate-700">
-//         <a
-//         href="#"
-//         className="block md:inline-block px-3 py-2 rounded-md text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700"
-//         >
-//         Home
-//         </a>
-//         <a
-//         href="#"
-//         className="block md:inline-block px-3 py-2 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
-//         >
-//         Feeds
-//         </a>
-//         <a
-//         href="#"
-//         className="block md:inline-block px-3 py-2 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
-//         >
-//         Pricing
-//         </a>
-//         <a
-//         href="#"
-//         className="block md:inline-block px-3 py-2 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
-//         >
-//         Contact
-//         </a>
-//     </div>
-//   );
-// };
-
-// export default Header;
-
-
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../../context/context';
 
 const Header = () => {
-  const { isLoggedIn } = useContext(AppContext);
+  const { isLoggedIn, setIsLoggedIn} = useContext(AppContext);
   const isPremiumUser = true; 
   console.log(isLoggedIn);
 
