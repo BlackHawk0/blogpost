@@ -1,19 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Feeds from '../../Pages/Feeds';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/context';
+import Feeds from '../../Pages/Feeds';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { isLoggedIn, setIsLoggedIn, users, setUsers } = useContext(AppContext); 
-
-  const navigate = useNavigate()
-
+  const { isLoggedIn, setIsLoggedIn, users, setUsers } = useContext(AppContext);
+  const navigate = useNavigate();
   const url = 'https://jsonplaceholder.typicode.com/users';
 
   useEffect(() => {
+    // Load users data from the API
     fetch(url)
       .then((res) => res.json())
       .then((data) => setUsers(data))
@@ -24,18 +23,20 @@ const Login = () => {
     if (isLoggedInFromLocalStorage === 'true') {
       setIsLoggedIn(true);
     }
-  }, []);
+  }, [setUsers, setIsLoggedIn]);
 
   const handleLogin = (e) => {
     e.preventDefault();
     const user = users.find(
-      (user) => (user.username === email || user.email === email) && user.address.zipcode === password
+      (user) =>
+        (user.username === email || user.email === email) &&
+        user.address.zipcode === password
     );
 
     if (user) {
       setIsLoggedIn(true);
       localStorage.setItem('isLoggedIn', 'true');
-      navigate('/')
+      navigate('/');
     } else {
       alert('Invalid email/username or password!');
     }
