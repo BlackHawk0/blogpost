@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 
 const navigation = [
   { name: 'Feed', href: '/', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
+  { name: 'Users', href: '/users', current: false },
+  { name: 'Following', href: '/following', current: false },
   { name: 'Calendar', href: '#', current: false },
 ];
 
@@ -16,11 +16,8 @@ function classNames(...classes) {
 }
 
 const Header = () => {
-  const { isLoggedIn, setIsLoggedIn } = useContext(AppContext);
+  const { isLoggedIn, handleLogout } = useContext(AppContext);
 
-  const handleLogout = () => {
-    setIsLoggedIn(false); // Call the logout function in the context to set isLoggedIn to false
-  };
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -96,28 +93,15 @@ const Header = () => {
                         <div className="py-1">
                           <Menu.Item>
                             {({ active }) => (
-                              <a
-                                href="#"
+                              <Link
+                                to="/profile" 
                                 className={classNames(
                                   active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                   'block px-4 py-2 text-sm'
                                 )}
                               >
                                 Your Profile
-                              </a>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#"
-                                className={classNames(
-                                  active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                  'block px-4 py-2 text-sm'
-                                )}
-                              >
-                                Settings
-                              </a>
+                              </Link>
                             )}
                           </Menu.Item>
                           <Menu.Item>
