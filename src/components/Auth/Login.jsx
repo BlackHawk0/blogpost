@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/context';
 import Feeds from '../../Pages/Feeds';
@@ -6,36 +6,19 @@ import Feeds from '../../Pages/Feeds';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const { isLoggedIn, setIsLoggedIn, users, setUsers } = useContext(AppContext);
+  const { isLoggedIn, setIsLoggedIn, users, setProfile } = useContext(AppContext);
   const navigate = useNavigate();
-  const url = 'https://jsonplaceholder.typicode.com/users';
-
-  useEffect(() => {
-    // Load users data from the API
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => setUsers(data))
-      .catch((err) => alert(err.message));
-
-    // Check if the user is already logged in (using localStorage)
-    const isLoggedInFromLocalStorage = localStorage.getItem('isLoggedIn');
-    if (isLoggedInFromLocalStorage === 'true') {
-      setIsLoggedIn(true);
-    }
-  }, [setUsers, setIsLoggedIn]);
 
   const handleLogin = (e) => {
     e.preventDefault();
     const user = users.find(
-      (user) =>
-        (user.username === email || user.email === email) &&
-        user.address.zipcode === password
+      (user) => (user.username === email || user.email === email) && user.address.zipcode === password
     );
-
     if (user) {
       setIsLoggedIn(true);
+      setProfile(user);
       localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('profile', JSON.stringify(user));
       navigate('/');
     } else {
       alert('Invalid email/username or password!');
@@ -52,7 +35,10 @@ const Login = () => {
             </h1>
             <form className="space-y-4 md:space-y-6" onSubmit={handleLogin}>
               <div>
-                <label htmlFor="email" className="block mb-4 text-sm font-medium text-gray-900 dark:text-white">
+                <label
+                  htmlFor="email"
+                  className="block mb-4 text-sm font-medium text-gray-900 dark:text-white"
+                >
                   Email or Username
                 </label>
                 <input
@@ -67,7 +53,10 @@ const Login = () => {
                 />
               </div>
               <div>
-                <label htmlFor="password" className="block mb-4 text-sm font-medium text-gray-900 dark:text-white">
+                <label
+                  htmlFor="password"
+                  className="block mb-4 text-sm font-medium text-gray-900 dark:text-white"
+                >
                   Zip-code
                 </label>
                 <input
@@ -92,7 +81,10 @@ const Login = () => {
 
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{' '}
-                <a href="#" className="font-medium text-primary-600 hover:underline dark:text-primary-500 text-blue-400">
+                <a
+                  href="#"
+                  className="font-medium text-primary-600 hover:underline dark:text-primary-500 text-blue-400"
+                >
                   Sign up
                 </a>
               </p>
@@ -101,7 +93,7 @@ const Login = () => {
         </div>
       </div>
 
-      {isLoggedIn && <Feeds isLoggedIn={isLoggedIn}  />}
+      {isLoggedIn && <Feeds isLoggedIn={isLoggedIn} />}
     </section>
   );
 };
