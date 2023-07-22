@@ -14,7 +14,7 @@ function App() {
     <>
     < Header />
       <Routes>
-        <Route path="/feeds" element={<Feeds />} />
+        <Route path="/" element={<Feeds />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </>
