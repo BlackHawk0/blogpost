@@ -4,6 +4,7 @@ import { AppContext } from '../context/context';
 const FollowingPosts = () => {
   const { users, following, posts } = useContext(AppContext);
 
+  console.log(following);
   // Get the posts of the users the authenticated user is following
   const followingPosts = posts.filter((post) => following.includes(post.userId));
 

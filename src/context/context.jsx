@@ -136,6 +136,7 @@ export const AppProvider = ({ children }) => {
 
   // Function to handle follow/unfollow
   const handleFollow = (userId) => {
+    alert('value', userId)
     if (following.includes(userId)) {
       setFollowing(following.filter((id) => id !== userId)); // Unfollow the user
     } else {
@@ -143,6 +144,10 @@ export const AppProvider = ({ children }) => {
       console.log(following); 
     }
   };
+  
+  // console.log(following);
+  console.log(posts);
+  console.log(localStorage.getItem('following'));
 
   return (
     <AppContext.Provider

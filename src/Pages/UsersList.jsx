@@ -13,6 +13,7 @@ const UsersList = () => {
             <p className="text-lg font-semibold">{user.name}</p>
             <button
               onClick={() => handleFollow(user.id)}
+              // onClick={() => alert('nmefinywa')}
               className={`px-4 py-2 rounded-md ${
                 following.includes(user.id)
                   ? 'bg-red-500 text-white hover:bg-red-600'
