@@ -7,8 +7,7 @@ import { Link } from 'react-router-dom';
 const navigation = [
   { name: 'Feed', href: '/', current: true },
   { name: 'Users', href: '/users', current: false },
-  { name: 'Following', href: '/following', current: false },
-  { name: 'Calendar', href: '#', current: false },
+  { name: 'Following', href: '/following', current: false }
 ];
 
 function classNames(...classes) {
@@ -17,7 +16,6 @@ function classNames(...classes) {
 
 const Header = () => {
   const { isLoggedIn, handleLogout } = useContext(AppContext);
-
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -60,7 +58,8 @@ const Header = () => {
                   ))}
                 </div>
               </div>
-              {isLoggedIn ? ( // Render profile dropdown if user is logged in
+              {isLoggedIn ? (
+                // Render elements for logged-in users
                 <div className="hidden sm:ml-6 sm:flex sm:items-center">
                   <button
                     type="button"
@@ -124,7 +123,7 @@ const Header = () => {
                   </Menu>
                 </div>
               ) : (
-                // Render the "Login" link for non-logged-in users
+                // Render elements for non-logged-in users
                 <div className="hidden sm:ml-6 sm:flex sm:items-center">
                   <Link to="/login" className="text-white px-3 py-2 rounded-md text-sm font-medium">
                     Login
